@@ -37,14 +37,52 @@ serviceAxios.interceptors.request.use(
 // 创建响应拦截
 serviceAxios.interceptors.response.use(
   (res) => {
-    const data = res.data
     // 处理自己的业务逻辑，比如判断 token 是否过期等等
     // 代码块
 
-    return data
+    return res
   },
   (error) => {
-    ElMessage.error(error.response.data.message)
+      const status = error.response.status
+      switch (status) {
+          case 400:
+              error.message = "请求错误"
+              break
+          case 401:
+              // Token 过期时
+              // logout()
+              break
+          case 403:
+              error.message = "拒绝访问"
+              break
+          case 404:
+              error.message = "请求地址出错"
+              break
+          case 408:
+              error.message = "请求超时"
+              break
+          case 500:
+              error.message = "服务器内部错误"
+              break
+          case 501:
+              error.message = "服务未实现"
+              break
+          case 502:
+              error.message = "网关错误"
+              break
+          case 503:
+              error.message = "服务不可用"
+              break
+          case 504:
+              error.message = "网关超时"
+              break
+          case 505:
+              error.message = "HTTP 版本不受支持"
+              break
+          default:
+              break
+      }
+      return Promise.reject(error)
   }
 )
 export default serviceAxios

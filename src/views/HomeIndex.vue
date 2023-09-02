@@ -11,6 +11,7 @@
 
 <template>
   <el-button @click="handleGetUserList">获取数据</el-button>
+  <router-link to="/login">登录</router-link>
   <p>name: {{ user.name }}</p>
   <p>age: {{ user.age }}</p>
   <p>count: {{ user.count }}</p>

@@ -7,7 +7,7 @@ export const getUserList = (data) => {
     data
   })
 }
-export const login = (data) => {
+export const loginApi = (data) => {
   return serviceAxios({
     url: '/api/user/login',
     method: 'post',
