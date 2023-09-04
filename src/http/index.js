@@ -2,6 +2,7 @@ import axios from 'axios'
 import serverConfig from './config/index.js'
 import qs from 'qs'
 import {ElMessage} from 'element-plus'
+import {useUserStoreHook} from "@/store/user.js";
 
 // 创建 axios 请求实例
 const serviceAxios = axios.create({
@@ -15,7 +16,7 @@ serviceAxios.interceptors.request.use(
   (config) => {
     // 如果开启 token 认证
     if (serverConfig.useTokenAuthorization) {
-      config.headers['Authorization'] = localStorage.getItem('token') // 请求头携带 token
+      config.headers['Authorization'] = useUserStoreHook().token// 请求头携带 token
     }
     // 设置请求头
     if (!config.headers['content-type']) {
@@ -80,6 +81,7 @@ serviceAxios.interceptors.response.use(
               error.message = "HTTP 版本不受支持"
               break
           default:
+              error.message = error.response.data
               break
       }
       return Promise.reject(error)

@@ -1,17 +1,8 @@
-import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { createPinia } from 'pinia'
+// Pinia 持久化存储插件
+import piniaPersist from 'pinia-plugin-persist'
 
-export const userStore = defineStore('index', () => {
-    const name = ref('iwhao')
-    const age = ref(18)
-    const count = ref(1)
-    const countDouble = computed(() => count.value * 2)
-    function countAdd() {
-        count.value++
-    }
-    return { name, age, count, countDouble, countAdd }
-},{
-    persist: {
-        enabled: true
-    },
-})
+const pinia = createPinia()
+pinia.use(piniaPersist)
+
+export default pinia

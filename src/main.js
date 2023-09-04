@@ -4,12 +4,9 @@ import App from './App.vue'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import router from "./router/index.js"
-import { createPinia } from 'pinia'
-// Pinia 持久化存储插件
-import piniaPersist from 'pinia-plugin-persist'
+import pinia from "@/store/index.js";
+import "@/router/permission.js"
 
-const pinia = createPinia()
-pinia.use(piniaPersist)
 createApp(App)
     .use(ElementPlus)
     .use(router)

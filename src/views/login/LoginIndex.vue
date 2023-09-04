@@ -5,12 +5,11 @@ import {rules} from "@/utils/rules/rules.js";
 import {useUserStore} from "@/store/user.js"
 import router from "@/router/index.js";
 import {ElMessage} from "element-plus";
-import {getToken} from "@/utils/cache/cookies.js";
 
 const formRef = ref()
 const form = reactive({
-  userName: 'admin',
-  password: 'admin'
+  userName: '李白',
+  password: '123'
 })
 
 const handleSubmit = (formEl) => {
@@ -20,11 +19,10 @@ const handleSubmit = (formEl) => {
       useUserStore()
           .login(form)
           .then(()=>{
-            console.log(getToken())
             router.push('/')
           })
           .catch(err=>{
-            ElMessage.error(err.response.data)
+            ElMessage.error(err.message)
           })
     }else {
       return false
@@ -59,8 +57,6 @@ const resetForm = (formEl) => {
     </el-form-item>
   </el-form>
 </template>
-
-
 
 
 <style scoped lang="scss">

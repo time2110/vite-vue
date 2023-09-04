@@ -1,22 +1,28 @@
 <script setup>
   import {getUserList} from "@/http/api/user.js";
-  import { userStore } from '@/store/index.js'
-  // 可以在组件中的任意位置访问 `store` 变量 ✨
-  const user = userStore()
-  async function handleGetUserList() {
-    const data = await getUserList()
-    console.log(data)
+  import {useUserStore} from "@/store/user.js";
+  import {ElMessage} from "element-plus";
+  import router from "@/router/index.js";
+
+  function handleGetUserInfo() {
+    useUserStore().getUserInfo().then(()=>{
+      console.log(useUserStore().userInfo.userName)
+    }).catch(err=>{
+      ElMessage.error(err.message)
+    })
+  }
+  function handleLogout() {
+    useUserStore().logout().then(()=>{
+      ElMessage.success('退出登录')
+    }).catch(err=>{})
   }
 </script>
 
 <template>
-  <el-button @click="handleGetUserList">获取数据</el-button>
-  <router-link to="/login">登录</router-link>
-  <p>name: {{ user.name }}</p>
-  <p>age: {{ user.age }}</p>
-  <p>count: {{ user.count }}</p>
-  <p>countDouble: {{ user.countDouble }}</p>
-  <button class="btn" @click="user.countAdd()">增加</button>
+  <el-button @click="handleGetUserInfo" v-if="useUserStore().token">获取用户数据</el-button>
+  <el-button @click="router.push('/userList')" v-if="useUserStore().token">用户列表</el-button>
+  <el-button @click="router.push('/login')" v-if="!useUserStore().token">登录</el-button>
+  <el-button @click="handleLogout" v-if="useUserStore().token">登出</el-button>
 </template>
 
 <style scoped>
