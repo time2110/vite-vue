@@ -14,6 +14,9 @@
   function handleLogout() {
     useUserStore().logout().then(()=>{
       ElMessage.success('退出登录')
+      router.push({
+        path: '/'
+      })
     }).catch(err=>{})
   }
 </script>

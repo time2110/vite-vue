@@ -43,7 +43,7 @@ serviceAxios.interceptors.response.use(
 
     return res
   },
-  (error) => {
+  async (error) => {
       const status = error.response.status
       switch (status) {
           case 400:
@@ -51,7 +51,8 @@ serviceAxios.interceptors.response.use(
               break
           case 401:
               // Token 过期时
-              // logout()
+              await useUserStoreHook().resetToken()
+              location.reload()
               break
           case 403:
               error.message = "拒绝访问"
@@ -81,9 +82,10 @@ serviceAxios.interceptors.response.use(
               error.message = "HTTP 版本不受支持"
               break
           default:
-              error.message = error.response.data
+              error.message = "内部错误"
               break
       }
+      ElMessage.error(error.message)
       return Promise.reject(error)
   }
 )
