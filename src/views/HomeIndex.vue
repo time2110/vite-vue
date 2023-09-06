@@ -26,6 +26,7 @@
   <el-button @click="router.push('/userList')" v-if="useUserStore().token">用户列表</el-button>
   <el-button @click="router.push('/login')" v-if="!useUserStore().token">登录</el-button>
   <el-button @click="handleLogout" v-if="useUserStore().token">登出</el-button>
+  <el-button @click="router.push('/css')" >页面展示</el-button>
 </template>
 
 <style scoped>

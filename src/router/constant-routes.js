@@ -19,5 +19,10 @@ export const constantRoutes = [
         path: '/login',
         name: 'Login',
         component: ()=> import('@/views/login/LoginIndex.vue')
+    },
+    {
+        path: '/css',
+        name: 'CSS',
+        component: ()=> import('@/views/css-view/CssIndex.vue')
     }
 ]

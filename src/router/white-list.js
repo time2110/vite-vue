@@ -2,7 +2,8 @@
 // 免登录白名单，匹配路由 path
 const whiteListByPath = [
     '/login',
-    '/home'
+    '/home',
+    '/css'
 ]
 
 // 免登录白名单，匹配路由 name
